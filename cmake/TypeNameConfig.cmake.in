@@ -1,0 +1,11 @@
+get_filename_component(TypeName_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+include(CMakeFindDependencyMacro)
+
+list(APPEND CMAKE_MODULE_PATH ${TypeName_CMAKE_DIR})
+
+if(NOT TARGET AdamBadura::TypeName)
+	include("${TypeName_CMAKE_DIR}/TypeNameTargets.cmake")
+endif()
+
+set(TypeName_LIBRARIES AdamBadura::TypeName)
