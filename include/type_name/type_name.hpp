@@ -11,9 +11,9 @@ struct type_name
 private:
 	static constexpr auto get() noexcept
 	{
-		const std::string_view full_name{ __PRETTY_FUNCTION__, sizeof(__PRETTY_FUNCTION__) };
-		const std::string_view left_marker{ "[with T = ", 10 };
-		const std::string_view right_marker{ "]", 1 };
+		const std::string_view full_name{ __PRETTY_FUNCTION__ };
+		const std::string_view left_marker{ "[with T = " };
+		const std::string_view right_marker{ "]" };
 		const auto start_index = full_name.find(left_marker) + left_marker.size();
 		const auto end_index = full_name.find(right_marker, start_index);
 		const auto length = end_index - start_index;
