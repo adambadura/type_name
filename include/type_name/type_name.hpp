@@ -3,6 +3,7 @@
 
 #if defined(__GNUC__) && ((__GNUC__ > 7) || (__GNUC__ == 7 && __GNUC_MINOR__ >= 3))
 
+#include <cassert>
 #include <string_view>
 
 template<typename T>
@@ -14,9 +15,14 @@ private:
 		const std::string_view full_name{ __PRETTY_FUNCTION__ };
 		const std::string_view left_marker{ "[with T = " };
 		const std::string_view right_marker{ "]" };
+
+		const auto left_marker_index = full_name.find(left_marker);
+		assert(left_marker_index != std::string_view::npos);
 		const auto start_index = full_name.find(left_marker) + left_marker.size();
-		const auto end_index = full_name.find(right_marker, start_index);
+		const auto end_index = full_name.find(right_marker, left_marker_index);
+		assert(end_index != std::string_view::npos);
 		const auto length = end_index - start_index;
+
 		return full_name.substr(start_index, length);
 	}
 
