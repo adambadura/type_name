@@ -6,10 +6,14 @@ add_library(AdamBadura::type_name ALIAS type_name)
 target_sources(type_name
 	INTERFACE
 		$<INSTALL_INTERFACE:include/type_name/type_name.hpp>
+		$<INSTALL_INTERFACE:include/type_name/type_name.clang.hpp>
+		$<INSTALL_INTERFACE:include/type_name/type_name.clang.5.hpp>
 		$<INSTALL_INTERFACE:include/type_name/type_name.gcc.hpp>
 		$<INSTALL_INTERFACE:include/type_name/type_name.gcc.7.3.hpp>
 		$<INSTALL_INTERFACE:include/type_name/type_name.gcc.8.1.hpp>
 		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.hpp>
+		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.clang.hpp>
+		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.clang.5.hpp>
 		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.gcc.hpp>
 		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.gcc.7.3.hpp>
 		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.gcc.8.1.hpp>
