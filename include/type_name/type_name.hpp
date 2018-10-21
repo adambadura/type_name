@@ -5,6 +5,8 @@
 #	include "type_name.clang.hpp"
 #elif defined(__GNUC__)
 #	include "type_name.gcc.hpp"
+#elif defined(_MSC_VER)
+#	include "type_name.msvc.hpp"
 #else
 #	error Unsupported compiler.
 #endif

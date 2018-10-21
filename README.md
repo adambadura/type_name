@@ -45,9 +45,7 @@ Keep in mind however that `type_name`:
 
 ## Implementation
 
-Implementation relies on `__PRETTY_FUNCTION__` compiler extension provided by GCC and clang. The symbol is old, however for the code to compile correctly, GCC must be at version 7.3 at least while clang at version 5 at least.
-
-Visual C++ provides `__FUNCSIG__` which is similar enough for the same "algorithm" to work with minor changes. However, currently available Visual C++ versions do not compile this code correctly. Upcoming one should - see "Future development" below for more details.
+Implementation relies on `__PRETTY_FUNCTION__` compiler extension provided by GCC and clang. The symbol is old, however for the code to compile correctly, GCC must be at version 7.3 at least while clang at version 5 at least. Visual C++ provides `__FUNCSIG__` which is similar enough for the same "algorithm" to work with minor changes, with the requirement of the version to be at least 19.21 (some versions prior to 19.21 might work as well, not all of them were checked).
 
 Note that even though the `__PRETTY_FUNCTION__` (and `__FUNCSIG__`) look like preprocessor symbols, they are not! The information they provide is not available at preprocessing phase and a file containing those symbols will still have them after being preprocessed.
 
@@ -110,7 +108,6 @@ Ensure that the `include/type_name/type_name.hpp` file is on your include path. 
 
 ## Future development
 
-1. **Support for Microsoft Visual C++.** It can be done with a similar approach using `__FUNCSIG__`. However, to do it with current form a compiler bug must be corrected first. See the thread on [Developer Community](https://developercommunity.visualstudio.com/content/problem/275141/c2131-expression-did-not-evaluate-to-a-constant-fo.html).
-2. **Introspection of the value.** For example skipping or iterating over namespaces, counting template arguments, extracting template arguments, ...
-3. **Support for older compilers.** It seems that older compilers and older standards could still deliver the same value as a fixed size character array. However, it would require significantly more code. Probably use of support library for compile-time strings handling.
-4. **Enum value name query.** It seems this could be used to provide a meta-function to query enum value as a string. The main difficulty is that there is no auto-deduction for template type arguments which means that providing enum value alone is not enough and one must get first the enum type and then the value.
+1. **Introspection of the value.** For example skipping or iterating over namespaces, counting template arguments, extracting template arguments, ...
+2. **Support for older compilers.** It seems that older compilers and older standards could still deliver the same value as a fixed size character array. However, it would require significantly more code. Probably use of support library for compile-time strings handling.
+3. **Enum value name query.** It seems this could be used to provide a meta-function to query enum value as a string. The main difficulty is that there is no auto-deduction for template type arguments which means that providing enum value alone is not enough and one must get first the enum type and then the value.

@@ -11,12 +11,16 @@ target_sources(type_name
 		$<INSTALL_INTERFACE:include/type_name/type_name.gcc.hpp>
 		$<INSTALL_INTERFACE:include/type_name/type_name.gcc.7_3.hpp>
 		$<INSTALL_INTERFACE:include/type_name/type_name.gcc.8_1.hpp>
+		$<INSTALL_INTERFACE:include/type_name/type_name.msvc.hpp>
+		$<INSTALL_INTERFACE:include/type_name/type_name.msvc.19_21.hpp>
 		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.hpp>
 		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.clang.hpp>
 		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.clang.5.hpp>
 		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.gcc.hpp>
 		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.gcc.7_3.hpp>
 		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.gcc.8_1.hpp>
+		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.msvc.hpp>
+		$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/type_name/type_name.msvc.19_21.hpp>
 )
 target_include_directories(type_name
 	INTERFACE
