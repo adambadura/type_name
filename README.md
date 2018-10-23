@@ -38,17 +38,14 @@ type<int, 10>{}.foo();
 // Will output: const type<int, 10>&
 ```
 
-Keep in mind however that this:
+Keep in mind however that `type_name`:
 * Provides static type. If `foo` in the example would be `virtual` and called by a derived class, it would still output the same, rather than derived type name.
 * Includes `const` for `const` methods and `&` or `&&` ref-qualifier of the method.
-
-**Most importantly, keep in mind that the actual name of the type is compiler dependent!**
+* **Most importantly, keep in mind that the actual name of the type is compiler dependent!**
 
 ## Implementation
 
-Implementation relies on `__PRETTY_FUNCTION__` compiler extension provided by GCC. The symbol is old, however for the code to compile correctly, GCC must be at version 7.3 at least.
-
-clang provides the same. However, currently available clang versions do not compile this code correctly.
+Implementation relies on `__PRETTY_FUNCTION__` compiler extension provided by GCC and clang. The symbol is old, however for the code to compile correctly, GCC must be at version 7.3 at least while clang at version 5 at least.
 
 Visual C++ provides `__FUNCSIG__` which is similar enough for the same "algorithm" to work with minor changes. However, currently available Visual C++ versions do not compile this code correctly. Upcoming one should - see "Future development" below for more details.
 
@@ -66,7 +63,7 @@ The library provides CMake support, based mostly on articles:
 * [It's Time To Do CMake Right](https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/) by Pablo Arias and
 * [Creating a Header-Only Library with CMake](http://mariobadr.com/creating-a-header-only-library-with-cmake.html) by Mario Badr.
 
-However, since the library consists of only a single header file it is very easy to use it with any build system or without a build system at all.
+However, since the library consists of only a few header files it is very easy to use it with any build system or without a build system at all.
 
 ## Building and installing
 
@@ -81,7 +78,7 @@ cmake -E chdir build cmake --build . --target install
 cmake -E remove_directory build
 ```
 
-where you can optionally provide following:
+where you can optionally provide the following:
 * `<generator>` - the generator used by CMake to generate actual build system.
 * `<path>` - the path under which the library will be installed. If you provide one, use that path later when referring to the library from your project. If the path is relative, keep in mind that it will be relative to the `build/` subdirectory.
 
@@ -100,12 +97,12 @@ Add following to your `CMakeLists.txt`:
 find_package(TypeName 1.0 REQUIRED)
 ```
 
-Then link to the library by doing following:
+Then link to the library by doing the following:
 ```cmake
 target_link_libraries(<your_target> AdamBadura::TypeName)
 ```
 
-Keep in mind that if you have used non-default installation directory while building and installing (the `CMAKE_INSTALL_PREFIX`), then CMake probably will not be able to locate the library by itself. You will have to help by providing the `<path>/lib/cmake/type_name/` as either `TypeName_DIR` variable or by appending it to the `CMAKE_PREFIX_PATH` list. Both can be done for example using the `"-D<var>=<value>"` argument on a `cmake` call when configuring your project.
+Keep in mind that if you have used a non-default installation directory while building and installing (the `CMAKE_INSTALL_PREFIX`), then CMake probably will not be able to locate the library by itself. You will have to help by providing the `<path>/lib/cmake/type_name/` as either `TypeName_DIR` variable or by appending it to the `CMAKE_PREFIX_PATH` list. Both can be done for example using the `"-D<var>=<value>"` argument on a `cmake` call when configuring your project.
 
 ### Without CMake
 
@@ -113,7 +110,7 @@ Ensure that the `include/type_name/type_name.hpp` file is on your include path. 
 
 ## Future development
 
-1. **Support for Microsoft Visual C++.** It can be done with a similar approach using `__FUNCSIG__`. However, to do it with current form a compiler bug must be corrected first. Which should happen in [upcoming release 15.8 Preview 3](https://developercommunity.visualstudio.com/content/problem/275141/c2131-expression-did-not-evaluate-to-a-constant-fo.html).
+1. **Support for Microsoft Visual C++.** It can be done with a similar approach using `__FUNCSIG__`. However, to do it with current form a compiler bug must be corrected first. See the thread on [Developer Community](https://developercommunity.visualstudio.com/content/problem/275141/c2131-expression-did-not-evaluate-to-a-constant-fo.html).
 2. **Introspection of the value.** For example skipping or iterating over namespaces, counting template arguments, extracting template arguments, ...
-3. **Support for older compilers.** It seems that older compilers and older standards could still deliver same value as a fixed size character array. However, it would require significantly more code. Probably use of support library for compile-time strings handling.
+3. **Support for older compilers.** It seems that older compilers and older standards could still deliver the same value as a fixed size character array. However, it would require significantly more code. Probably use of support library for compile-time strings handling.
 4. **Enum value name query.** It seems this could be used to provide a meta-function to query enum value as a string. The main difficulty is that there is no auto-deduction for template type arguments which means that providing enum value alone is not enough and one must get first the enum type and then the value.
