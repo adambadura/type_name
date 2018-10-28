@@ -16,7 +16,7 @@ private:
 
 		const auto left_marker_index = full_name.find(left_marker);
 		assert(left_marker_index != std::string_view::npos);
-		const auto start_index = full_name.find(left_marker) + left_marker.size();
+		const auto start_index = left_marker_index + left_marker.size();
 		const auto end_index = full_name.find(right_marker, left_marker_index);
 		assert(end_index != std::string_view::npos);
 		const auto length = end_index - start_index;

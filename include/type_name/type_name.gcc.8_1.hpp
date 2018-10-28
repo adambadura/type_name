@@ -15,7 +15,7 @@ private:
 
 		constexpr auto left_marker_index = full_name.find(left_marker);
 		static_assert(left_marker_index != std::string_view::npos);
-		constexpr auto start_index = full_name.find(left_marker) + left_marker.size();
+		constexpr auto start_index = left_marker_index + left_marker.size();
 		constexpr auto end_index = full_name.find(right_marker, left_marker_index);
 		static_assert(end_index != std::string_view::npos);
 		constexpr auto length = end_index - start_index;
